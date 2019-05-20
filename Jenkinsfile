@@ -1,6 +1,17 @@
+podTemplate(label: 'buildpod',
+    volumes: [
+        hostPathVolume(hostPath: '/etc/docker/certs.d', mountPath: '/etc/docker/certs.d'),
+        hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock'),
+        secretVolume(secretName: 'registry-account', mountPath: '/var/run/secrets/registry-account'),
+        configMapVolume(configMapName: 'registry-config', mountPath: '/var/run/configs/registry-config')
+    ],
+    containers: [
+        containerTemplate(name: 'docker', image: 'mycluster.icp:8500/default/docker:latest', command: 'cat', ttyEnabled: true),
+        containerTemplate(name: 'containertest', image: 'mycluster.icp:8500/default/containertest:latest', command: 'cat', ttyEnabled: true),
+        containerTemplate(name: 'helm', image: 'mycluster.icp:8500/default/k8s-helm:latest', command: 'cat', ttyEnabled: true)
+  ]) {
 
-
-    node {
+    node('buildpod') {
         checkout scm
         container('docker') {
             stage('Build Docker Image') {
