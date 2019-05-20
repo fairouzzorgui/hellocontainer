@@ -1,4 +1,4 @@
-podTemplate(
+podTemplate(label:'buildpod',     
     volumes: [
         hostPathVolume(hostPath: '/etc/docker/certs.d', mountPath: '/etc/docker/certs.d'),
         hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock'),
@@ -11,7 +11,7 @@ podTemplate(
         containerTemplate(name: 'helm', image: 'wizplaycluster.icp:8500/default/k8s-helm:latest', command: 'cat', ttyEnabled: true)
   ]) {
 
-    node {
+    node('buildpod') {
         checkout scm
         container('docker') {
             stage('Build Docker Image') {
