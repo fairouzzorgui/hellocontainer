@@ -3,7 +3,7 @@ podTemplate(label: 'buildpod',
         hostPathVolume(hostPath: '/etc/docker/certs.d', mountPath: '/etc/docker/certs.d'),
         hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock'),
         secretVolume(secretName: 'defregistrykey', mountPath: '/var/run/secrets/registry-account'),
-        configMapVolume(configMapName: 'kube-system/registry-config', mountPath: '/var/run/configs/registry-config')
+        configMapVolume(configMapName: 'def-registry-config', mountPath: '/var/run/configs/registry-config')
     ],
     containers: [
         containerTemplate(name: 'docker', image: 'mycluster.icp:8500/default/docker:latest', command: 'cat', ttyEnabled: true),
