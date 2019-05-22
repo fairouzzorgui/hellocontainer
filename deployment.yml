@@ -18,10 +18,8 @@ spec:
         app: hello-app
     spec:
       containers:
-      - name: hello-app
-        image: webapp:6
-        # for local development against minikube registry
-        #imagePullPolicy: Never        
+      - name: hello-container
+        image: mycluster.icp:8500/default/hello-container:latest     
         ports:
         - containerPort: 80
 ---
