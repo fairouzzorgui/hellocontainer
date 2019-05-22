@@ -40,29 +40,6 @@ podTemplate(label: 'buildpod',
             }
         }
 
-        container('helm') {
-            stage('Deploy new helm release') {
-                sh """
-                #!/bin/bash
-                set +e
-                NAMESPACE='default'
-                REGISTRY='mycluster.icp:8500'
-                CHARTNAME='helm list --deployed --short hello-container'
-
-                helm list \${CHARTNAME}
-
-                if [ \${?} -ne "0" ]; then
-                    # No chart release to update
-                    echo 'No chart release to update'
-                    exit 1
-                fi
-
-                # Update Release 
-                helm upgrade hello-container ./hellocontainer-chart/ --set image.repository=\${REGISTRY}/\${NAMESPACE}/hello-container --set image.tag=${env.BUILD_NUMBER}
-                """
-            }
-        }
-
 
     }
 }
