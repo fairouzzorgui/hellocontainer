@@ -26,12 +26,12 @@ podTemplate(label: 'buildpod',
             stage('Push Docker Image to Registry') {
                 sh """
                 #!/bin/bash
-                NAMESPACE=`default`
-                REGISTRY=`mycluster.icp:8500`
+                NAMESPACE='default'
+                REGISTRY='mycluster.icp:8500'
 
                 set +x
-                DOCKER_USER=`admin`
-                DOCKER_PASSWORD=`admin`
+                DOCKER_USER='admin'
+                DOCKER_PASSWORD='admin'
                 docker login -u=\${DOCKER_USER} -p=\${DOCKER_PASSWORD} \${REGISTRY}
                 set -x
 
@@ -45,9 +45,9 @@ podTemplate(label: 'buildpod',
                 sh """
                 #!/bin/bash
                 set +e
-                NAMESPACE=`default`
-                REGISTRY=`mycluster.icp:8500`
-                CHARTNAME=`helm list --deployed --short hello-container`
+                NAMESPACE='default'
+                REGISTRY='mycluster.icp:8500'
+                CHARTNAME='helm list --deployed --short hello-container'
 
                 helm list \${CHARTNAME}
 
