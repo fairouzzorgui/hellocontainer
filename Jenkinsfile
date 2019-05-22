@@ -8,7 +8,6 @@ podTemplate(label: 'buildpod',
     imagePullSecrets:['defregistrykey'],
     containers: [
         containerTemplate(name: 'docker', image: 'mycluster.icp:8500/default/docker:latest', command: 'cat', ttyEnabled: true, imagePullSecrets:['defregistrykey'],alwaysPullImage: true),
-        containerTemplate(name: 'containertest', image: 'mycluster.icp:8500/default/containertest:latest', command: 'cat', ttyEnabled: true,imagePullSecrets:['defregistrykey'],alwaysPullImage: true),
         containerTemplate(name: 'helm', image: 'mycluster.icp:8500/default/k8s-helm:latest', command: 'cat', ttyEnabled: true,imagePullSecrets:['defregistrykey'],alwaysPullImage: true)
   ]) {
 
@@ -40,16 +39,7 @@ podTemplate(label: 'buildpod',
                 """
             }
         }
-        container('containertest') {
-            stage('Test built docker Image') {
-                sh """
-                #!/bin/bash
-                NAMESPACE=`cat /var/run/configs/registry-config/namespace`
-                REGISTRY=`cat /var/run/configs/registry-config/registry`
-                container-structure-test  -test.v   -image \${REGISTRY}/\${NAMESPACE}/hello-container:${env.BUILD_NUMBER} /var/tmp/hello-container-test.yaml
-                """
-            }
-        }
+
         container('helm') {
             stage('Deploy new helm release') {
                 sh """
