@@ -42,8 +42,10 @@ podTemplate(label: 'buildpod',
 
 
     }
+    node {
           stage('Deploy') {
             sh 'kubectl apply -f deployment.yml'
         
-        }
+        }  
+    }
 }
