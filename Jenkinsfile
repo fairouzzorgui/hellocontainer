@@ -51,10 +51,10 @@ podTemplate(label: 'buildpod',
             stage('Deploy on kubernetes') {
                 steps{
                     kubernetesDeploy(
-                    kubeconfigId: 'kubeconf',
-                    configs: 'deployment.yml',
-                    enableConfigSubstitution: true
-                )
+                        kubeconfigId: 'kubeconf',
+                        configs: 'deployment.yml',
+                        enableConfigSubstitution: true
+                                    )
         }
         }     
         }
