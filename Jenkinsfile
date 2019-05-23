@@ -7,11 +7,20 @@ podTemplate(label: 'buildpod',
     ],
     imagePullSecrets:['defregistrykey'],
     containers: [
+        containerTemplate(name: 'node', image: 'node:6.12.0-alpine', command: 'cat', ttyEnabled: true),
         containerTemplate(name: 'docker', image: 'mycluster.icp:8500/default/docker:latest', command: 'cat', ttyEnabled: true, imagePullSecrets:['defregistrykey'],alwaysPullImage: true),
-  ]) {
+    ]) {
 
     node('buildpod') {
         checkout scm
+        container('node') {
+            stage('Build') {
+                sh 'npm install'
+            }
+            stage('Test'){
+                sh 'npm test'
+            }
+        }
         container('docker') {
             stage('Build Docker Image') {
                 sh """
@@ -38,14 +47,19 @@ podTemplate(label: 'buildpod',
                 """
             }
         }
+        node('master') {
+            stage('Deploy on kubernetes') {
+                steps {
+                    kubernetesDeploy(
+                    kubeconfigId: 'kubeconf',
+                    configs: 'deployment.yml',
+                    enableConfigSubstitution: true
+                )
+            }
+        }
+        }     
         
 
 
-    }
-    node('master') {
-          stage('Deploy') {
-            sh 'kubectl apply -f deployment.yml'
-        
-        }  
     }
 }
