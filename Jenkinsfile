@@ -48,7 +48,7 @@ podTemplate(label: 'buildpod',
             }
         }
             stage('Deploy on kubernetes') {
-                kubernetesDeploy(kubeconfigId: 'confkube',configs: 'deployment.yml',enableConfigSubstitution: true)
+                kubernetesDeploy(kubeconfigId: 'sshkube',configs: 'deployment.yml',enableConfigSubstitution: true)
                 steps{
                         sh 'kubectl apply -f deployment.yml'
                     
