@@ -47,7 +47,6 @@ podTemplate(label: 'buildpod',
                 """
             }
         }
-        node('master') {
             stage('Deploy on kubernetes') {
                 kubernetesDeploy(kubeconfigId: 'kubeconf',configs: 'deployment.yml',enableConfigSubstitution: true)
                 steps{
@@ -55,7 +54,6 @@ podTemplate(label: 'buildpod',
                     
         }
         }     
-        }
 
 
     }
