@@ -48,15 +48,15 @@ podTemplate(label: 'buildpod',
             }
         }
             stage('Deploy on kubernetes') {
-                podTemplate(label: 'hellocontainer', inheritFrom: 'deployment.yml')
-                {
+               // podTemplate(label: 'hellocontainer', inheritFrom: 'deployment.yml')
+               // {
                 ///testing
-                }
-            //    kubernetesDeploy(kubeconfigId: 'sshkube',configs: 'deployment.yml',enableConfigSubstitution: true)
-              //  steps{
-                //        sh 'kubectl apply -f deployment.yml'
+                //}
+                kubernetesDeploy(kubeconfigId: 'b675d5a4-5f1b-4d3c-8608-9d08be87c1b0',configs: 'deployment.yml',enableConfigSubstitution: true)
+                    steps{
+                        sh 'kubectl apply -f deployment.yml'
                     
-        //}
+        }
         }     
 
 
