@@ -29,7 +29,7 @@ podTemplate(label: 'buildpod',
                 NAMESPACE='default'
                 REGISTRY='mycluster.icp:8500'
 
-                docker build -t \${REGISTRY}/\${NAMESPACE}/hello-container:${env.BUILD_NUMBER} .
+                docker build -t \${REGISTRY}/\${NAMESPACE}/hello-container:latest .
                 """
             } 
             stage('Push Docker Image to Registry') {
