@@ -51,7 +51,8 @@ podTemplate(label: 'buildpod',
         
         container('kubectl'){
             stage('Deploy on kubernetes') {
-                  withKubeConfig([credentialsId: 'kubetest',namespace: 'default', serverUrl: 'https://192.168.0.150']) {
+                  withKubeConfig([credentialsId: 'kubetest',namespace: 'default', contextName: 'mycluster-context',
+                    clusterName: 'mycluster', serverUrl: 'https://192.168.0.150:8001']) {
                         sh 'kubectl config view'
                         sh 'kubectl create -f deployment.yml' 
                   }
