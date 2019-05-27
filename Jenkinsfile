@@ -51,13 +51,9 @@ podTemplate(label: 'buildpod',
         
         container('kubectl'){
             stage('Deploy on kubernetes') {
-               // podTemplate(label: 'hellocontainer', inheritFrom: 'deployment.yml')
-               // {
-                ///testing
-                //}
-            //    kubernetesDeploy(kubeconfigId: 'confkube',configs: 'deployment.yml',enableConfigSubstitution: true)
                   withKubeConfig([credentialsId: 'kubetest',namespace: 'default', serverUrl: 'https://192.168.0.150']) {
-                        sh 'kubectl apply -f deployment.yml' 
+                        sh 'kubectl get pods'
+                        sh 'kubectl create -f deployment.yml' 
                   }
         }
         } 
