@@ -45,7 +45,7 @@ podTemplate(label: 'buildpod',
                 docker login -u=\${DOCKER_USER} -p=\${DOCKER_PASSWORD} \${REGISTRY}
                 set -x
 
-                docker push \${REGISTRY}/\${NAMESPACE}/hello-container:${env.BUILD_NUMBER}
+                docker push \${REGISTRY}/\${NAMESPACE}/hello-container:latest
                 """
             }
         }
