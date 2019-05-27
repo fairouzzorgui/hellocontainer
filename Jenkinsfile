@@ -57,9 +57,7 @@ podTemplate(label: 'buildpod',
                 //}
             //    kubernetesDeploy(kubeconfigId: 'confkube',configs: 'deployment.yml',enableConfigSubstitution: true)
                   withKubeConfig([credentialsId: 'kubetest',namespace: 'default', serverUrl: 'https://192.168.0.150']) {
-                    steps{
-                        sh 'kubectl apply -f deployment.yml'
-                  }
+                        sh 'kubectl apply -f deployment.yml' 
                   }
         }
         } 
