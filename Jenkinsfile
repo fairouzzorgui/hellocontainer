@@ -52,7 +52,7 @@ podTemplate(label: 'buildpod',
         container('kubectl'){
             stage('Deploy on kubernetes') {
                   withKubeConfig([credentialsId: 'kubetest',namespace: 'default', serverUrl: 'https://192.168.0.150']) {
-                        sh 'kubectl get pods'
+                        sh 'kubectl config view'
                         sh 'kubectl create -f deployment.yml' 
                   }
         }
