@@ -56,12 +56,12 @@ podTemplate(label: 'buildpod',
                // {
                 ///testing
                 //}
-                kubernetesDeploy(kubeconfigId: 'confkube',configs: 'deployment.yml',enableConfigSubstitution: true)
-                    steps{
+            //    kubernetesDeploy(kubeconfigId: 'confkube',configs: 'deployment.yml',enableConfigSubstitution: true)
+          //          steps{
                         sh 'kubectl apply -f deployment.yml'
                     
         }
-        }     
+        //}     
         }
 
 }
