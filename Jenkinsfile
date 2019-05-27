@@ -47,7 +47,9 @@ podTemplate(label: 'buildpod',
                 """
             }
         }
-        node('master') {
+
+    }
+            node('master') {
             checkout scm
             stage('Deploy on kubernetes') {
                // podTemplate(label: 'hellocontainer', inheritFrom: 'deployment.yml')
@@ -62,5 +64,4 @@ podTemplate(label: 'buildpod',
         }     
         }
 
-    }
 }
