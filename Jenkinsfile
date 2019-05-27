@@ -8,6 +8,7 @@ podTemplate(label: 'buildpod',
     imagePullSecrets:['defregistrykey'],
     containers: [
         containerTemplate(name: 'node', image: 'node:6.12.0-alpine', command: 'cat', ttyEnabled: true),
+        containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:latest', command: 'cat', ttyEnabled: true),
         containerTemplate(name: 'docker', image: 'mycluster.icp:8500/default/docker:latest', command: 'cat', ttyEnabled: true, imagePullSecrets:['defregistrykey'],alwaysPullImage: true),
     ]) {
 
@@ -47,10 +48,8 @@ podTemplate(label: 'buildpod',
                 """
             }
         }
-
-    }
-            node('master') {
-            checkout scm
+        
+        container('kubectl'){
             stage('Deploy on kubernetes') {
                // podTemplate(label: 'hellocontainer', inheritFrom: 'deployment.yml')
                // {
@@ -61,9 +60,12 @@ podTemplate(label: 'buildpod',
                     steps{
                         sh 'kubectl apply -f deployment.yml'
                   }
-                    
+                  }
         }
-        }     
-        }
+        } 
+
+    }
+             
+        
 
 }
