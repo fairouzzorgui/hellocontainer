@@ -20,7 +20,7 @@ spec:
       containers:
       - name: hello-container
         image: mycluster.icp:8500/default/hello-container  
-        imagePullPolicy: always
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
 ---
