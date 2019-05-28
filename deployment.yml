@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: hello-container
-        image: mycluster.icp:8500/default/hello-container:latest
+        image: mycluster.icp:8500/default/hello-container:${BUILD_NUMBER}
         imagePullPolicy: Always
         ports:
         - containerPort: 80
