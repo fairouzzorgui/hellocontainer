@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: hello-container
-        image: mycluster.icp:8500/default/hello-container:45    
+        image: mycluster.icp:8500/default/hello-container:55    
         ports:
         - containerPort: 80
 ---
