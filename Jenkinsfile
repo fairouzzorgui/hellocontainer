@@ -44,7 +44,7 @@ podTemplate(label: 'buildpod',
                 docker login -u=\${DOCKER_USER} -p=\${DOCKER_PASSWORD} \${REGISTRY}
                 set -x
 
-                docker push \${REGISTRY}/\${NAMESPACE}/hello-container:latest
+                docker push \${REGISTRY}/\${NAMESPACE}/hello-container:${env.BUILD_NUMBER}
                 """
             }
         }
@@ -54,6 +54,7 @@ podTemplate(label: 'buildpod',
                   withKubeConfig([credentialsId: 'token',namespace: 'default', contextName: 'mycluster-context',
                     clusterName: 'mycluster', serverUrl: 'https://192.168.0.150:8001']) {
                         sh 'kubectl config view'
+                        sh 'kubectl get pods'
                         sh 'kubectl apply -f deployment.yml' 
                   }
         }
